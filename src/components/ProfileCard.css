@@ -1,0 +1,72 @@
+.profile-card {
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  animation: fadeIn 0.5s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.profile-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.profile-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  object-fit: cover;
+}
+
+.profile-info h3 {
+  font-size: 1.125rem;
+  margin-bottom: 0.25rem;
+  color: var(--text-primary);
+}
+
+.profile-role {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.profile-bio {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.5;
+}
+
+.profile-tags {
+  display: flex;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.profile-skills {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+}
+
+.skill-badge {
+  padding: 0.25rem 0.625rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.skill-badge:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
