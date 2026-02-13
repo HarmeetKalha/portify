@@ -85,7 +85,10 @@ export default function EmployeeHome() {
                     <h4>{employer.companyName}</h4>
                     <p className="company-industry">{employer.industry}</p>
                     <p className="company-desc">{employer.description?.substring(0, 80)}...</p>
-                    <button className="btn btn-secondary w-full mt-2">
+                    <button 
+                      className="btn btn-secondary w-full mt-2"
+                      onClick={() => navigate(`/profile/${employer.id}`)}
+                    >
                       View Details
                     </button>
                   </div>

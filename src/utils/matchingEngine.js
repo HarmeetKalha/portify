@@ -57,14 +57,15 @@ export function findWorkplaceSuggestions(employee, allEmployers) {
   });
 }
 
-export function searchByName(query, employees) {
+export function searchByName(query, employees, employers = []) {
   if (!query || query.trim() === '') {
-    return employees;
+    return [...employees, ...employers];
   }
 
   const searchTerm = query.toLowerCase().trim();
   
-  return employees.filter(employee => {
+  // Search employees
+  const matchedEmployees = employees.filter(employee => {
     const name = employee.name?.toLowerCase() || '';
     const role = employee.role?.toLowerCase() || '';
     const bio = employee.bio?.toLowerCase() || '';
@@ -73,4 +74,20 @@ export function searchByName(query, employees) {
            role.includes(searchTerm) || 
            bio.includes(searchTerm);
   });
+
+  // Search employers
+  const matchedEmployers = employers.filter(employer => {
+    const name = employer.name?.toLowerCase() || '';
+    const companyName = employer.companyName?.toLowerCase() || '';
+    const industry = employer.industry?.toLowerCase() || '';
+    const description = employer.description?.toLowerCase() || '';
+    
+    return name.includes(searchTerm) || 
+           companyName.includes(searchTerm) || 
+           industry.includes(searchTerm) || 
+           description.includes(searchTerm);
+  });
+
+  return [...matchedEmployees, ...matchedEmployers];
 }
+

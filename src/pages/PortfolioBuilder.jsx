@@ -102,12 +102,16 @@ export default function PortfolioBuilder() {
   };
 
   const handleSave = () => {
+    console.log('Saving portfolio:', portfolio);
+    
     // Generate tags based on portfolio
     const tags = analyzePortfolio(portfolio);
+    console.log('Generated tags:', tags);
     
     // Update user profile with portfolio and tags
     updateUserProfile({ portfolio, tags });
     
+    console.log('Portfolio saved, navigating to home');
     navigate('/employee/home');
   };
 

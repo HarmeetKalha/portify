@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './LoginPage.css';
 
@@ -105,7 +105,12 @@ export default function LoginPage() {
             ))}
           </div>
         </div>
+
+        <div className="login-footer">
+          <p>Don't have an account? <Link to="/signup" className="link">Create Account</Link></p>
+        </div>
       </div>
     </div>
   );
 }
+

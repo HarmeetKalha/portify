@@ -1,6 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { mockEmployees } from '../data/mockData';
+import { useAuth, getAllAccounts } from '../context/AuthContext';
 import './ProfileView.css';
 
 export default function ProfileView() {
@@ -8,7 +7,12 @@ export default function ProfileView() {
   const navigate = useNavigate();
   const { addToRecentlyViewed } = useAuth();
   
-  const profile = mockEmployees.find(emp => emp.id === parseInt(id));
+  // Search in both employees and employers (including custom accounts)
+  const allEmployees = getAllAccounts('employee');
+  const allEmployers = getAllAccounts('employer');
+  const allProfiles = [...allEmployees, ...allEmployers];
+  
+  const profile = allProfiles.find(p => p.id === parseInt(id));
 
   if (!profile) {
     return (
@@ -26,6 +30,50 @@ export default function ProfileView() {
   // Add to recently viewed
   addToRecentlyViewed(profile.id);
 
+  // Check if this is an employer profile
+  const isEmployer = profile.type === 'employer' || profile.companyName;
+
+  if (isEmployer) {
+    // Render employer profile
+    return (
+      <div className="profile-view">
+        <header className="profile-header">
+          <button className="back-btn" onClick={() => navigate(-1)}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back
+          </button>
+        </header>
+
+        <div className="profile-content">
+          <div className="profile-main glass-card">
+            <div className="profile-hero">
+              <img 
+                src={profile.logo || `https://api.dicebear.com/7.x/initials/svg?seed=${profile.companyName}`}
+                alt={profile.companyName}
+                className="profile-avatar-large"
+              />
+              <div className="profile-title">
+                <h1>{profile.companyName || profile.name}</h1>
+                <p className="profile-role-large">{profile.industry}</p>
+                <div className="profile-tags-large">
+                  <span className="tag tag-accent">Employer</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="profile-bio-section">
+              <h2>About</h2>
+              <p>{profile.description}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Render employee profile
   return (
     <div className="profile-view">
       <header className="profile-header">
@@ -107,24 +155,31 @@ export default function ProfileView() {
           {profile.portfolio?.projects && profile.portfolio.projects.length > 0 && (
             <div className="profile-section">
               <h2>Projects</h2>
-              {profile.portfolio.projects.map((project, index) => (
-                <div key={index} className="project-card">
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  {project.technologies && (
-                    <div className="project-tech">
-                      {project.technologies.map((tech, i) => (
-                        <span key={i} className="tech-badge">{tech}</span>
-                      ))}
-                    </div>
-                  )}
-                  {project.link && (
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link">
-                      View Project →
-                    </a>
-                  )}
-                </div>
-              ))}
+              {profile.portfolio.projects.map((project, index) => {
+                // Handle technologies as either string or array
+                const technologies = Array.isArray(project.technologies)
+                  ? project.technologies
+                  : (project.technologies ? project.technologies.split(',').map(t => t.trim()) : []);
+                
+                return (
+                  <div key={index} className="project-card">
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
+                    {technologies.length > 0 && (
+                      <div className="project-tech">
+                        {technologies.map((tech, i) => (
+                          <span key={i} className="tech-badge">{tech}</span>
+                        ))}
+                      </div>
+                    )}
+                    {project.link && (
+                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link">
+                        View Project →
+                      </a>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           )}
 
@@ -163,3 +218,4 @@ export default function ProfileView() {
     </div>
   );
 }
+

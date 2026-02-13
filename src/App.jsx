@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 import EmployeeHome from './pages/EmployeeHome';
 import EmployerHome from './pages/EmployerHome';
 import PortfolioBuilder from './pages/PortfolioBuilder';
@@ -37,6 +38,8 @@ function AppRoutes() {
           )
         } 
       />
+      
+      <Route path="/signup" element={<SignupPage />} />
       
       <Route 
         path="/employee/home" 

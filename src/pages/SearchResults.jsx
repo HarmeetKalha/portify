@@ -1,6 +1,5 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { mockEmployees } from '../data/mockData';
+import { useAuth, getAllAccounts } from '../context/AuthContext';
 import { searchByName } from '../utils/matchingEngine';
 import ProfileCard from '../components/ProfileCard';
 import './SuggestedAccounts.css';
@@ -11,7 +10,11 @@ export default function SearchResults() {
   const { addToRecentlyViewed } = useAuth();
   const query = searchParams.get('q') || '';
 
-  const results = searchByName(query, mockEmployees);
+  // Get all employees and employers (including custom accounts)
+  const allEmployees = getAllAccounts('employee');
+  const allEmployers = getAllAccounts('employer');
+  
+  const results = searchByName(query, allEmployees, allEmployers);
 
   return (
     <div className="suggested-accounts">
@@ -53,3 +56,4 @@ export default function SearchResults() {
     </div>
   );
 }
+

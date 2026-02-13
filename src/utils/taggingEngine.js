@@ -33,11 +33,25 @@ export function generateTags(portfolio) {
   }
 
   // Combine all text from portfolio
+  const projectTexts = (portfolio.projects || []).map(p => {
+    // Handle technologies as either string or array
+    const techText = Array.isArray(p.technologies) 
+      ? p.technologies.join(' ') 
+      : (p.technologies || '');
+    return `${p.title || ''} ${p.description || ''} ${techText}`;
+  });
+
+  const experienceTexts = (portfolio.experience || []).map(e => 
+    `${e.role || ''} ${e.description || ''}`
+  );
+
   const allText = [
     ...(portfolio.skills || []),
-    ...(portfolio.projects || []).map(p => `${p.title} ${p.description} ${(p.technologies || []).join(' ')}`),
-    ...(portfolio.experience || []).map(e => `${e.role} ${e.description}`)
+    ...projectTexts,
+    ...experienceTexts
   ].join(' ').toLowerCase();
+
+  console.log('Analyzing portfolio text:', allText.substring(0, 200) + '...');
 
   // Find technical tag
   let technicalTag = 'Developer';
@@ -83,6 +97,8 @@ export function generateTags(portfolio) {
     softSkillTag = 'Detail-Oriented';
   }
 
+  console.log('Generated tags:', { technical: technicalTag, softSkill: softSkillTag });
+
   return {
     technical: technicalTag,
     softSkill: softSkillTag
@@ -93,3 +109,4 @@ export function generateTags(portfolio) {
 export function analyzePortfolio(portfolio) {
   return generateTags(portfolio);
 }
+

@@ -3,14 +3,49 @@ import './ProfileCard.css';
 
 export default function ProfileCard({ profile, onClick }) {
   const navigate = useNavigate();
+  const isEmployer = profile.type === 'employer' || profile.companyName;
 
   const handleClick = () => {
     if (onClick) {
       onClick(profile.id);
     }
-    navigate(`/profile/${profile.id}`);
+    
+    // For employers, navigate to a different route or show company info
+    if (isEmployer) {
+      // For now, we'll just show an alert since we don't have employer profile pages yet
+      // In a full implementation, you'd navigate to /employer-profile/:id
+      navigate(`/profile/${profile.id}`);
+    } else {
+      navigate(`/profile/${profile.id}`);
+    }
   };
 
+  if (isEmployer) {
+    // Employer card layout
+    return (
+      <div className="profile-card glass-card" onClick={handleClick}>
+        <div className="profile-card-header">
+          <img 
+            src={profile.logo || `https://api.dicebear.com/7.x/initials/svg?seed=${profile.companyName}`}
+            alt={profile.companyName}
+            className="profile-avatar"
+          />
+          <div className="profile-info">
+            <h3>{profile.companyName || profile.name}</h3>
+            <p className="profile-role">{profile.industry}</p>
+          </div>
+        </div>
+
+        <p className="profile-bio">{profile.description?.substring(0, 100)}...</p>
+
+        <div className="profile-tags">
+          <span className="tag tag-accent">Employer</span>
+        </div>
+      </div>
+    );
+  }
+
+  // Employee card layout (original)
   return (
     <div className="profile-card glass-card" onClick={handleClick}>
       <div className="profile-card-header">
@@ -47,3 +82,4 @@ export default function ProfileCard({ profile, onClick }) {
     </div>
   );
 }
+
