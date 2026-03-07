@@ -1,0 +1,126 @@
+.employer-home {
+  min-height: 100vh;
+  padding-bottom: var(--spacing-xl);
+}
+
+.requirements-card {
+  padding: var(--spacing-xl);
+}
+
+.requirements-card h2 {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.requirements-card > p {
+  font-size: 1.125rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.requirements-form {
+  margin-bottom: var(--spacing-lg);
+}
+
+.requirements-form .form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.requirements-form label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.requirements-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quick-suggestions {
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-color);
+}
+
+.quick-title {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-sm);
+}
+
+.quick-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.quick-btn {
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: inherit;
+}
+
+.quick-btn:hover {
+  background: var(--bg-hover);
+  border-color: #667eea;
+  color: var(--text-primary);
+}
+
+.your-workplace h3 {
+  font-size: 1.125rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.employees-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.employee-card {
+  padding: var(--spacing-md);
+  display: flex;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.employee-card:hover {
+  transform: translateY(-2px);
+}
+
+.employee-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.employee-info {
+  flex: 1;
+}
+
+.employee-info h4 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.employee-role {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xs);
+}
+
+.employee-tags {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+}
