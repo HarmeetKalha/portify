@@ -1,55 +1,61 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import { useAuth } from '../context/AuthContext';
 import './SignupPage.css';
 
+const signupSchema = z.object({
+  userType: z.enum(['employee', 'employer']),
+  email: z.string().min(1, 'Email is required').email('Please enter a valid email address'),
+  name: z.string().optional().or(z.literal('')),
+  role: z.string().optional().or(z.literal('')),
+  bio: z.string().optional().or(z.literal('')),
+  companyName: z.string().optional().or(z.literal('')),
+  industry: z.string().optional().or(z.literal('')),
+  description: z.string().optional().or(z.literal(''))
+}).superRefine((data, ctx) => {
+  if (data.userType === 'employee') {
+    if (!data.name?.trim()) ctx.addIssue({ path: ['name'], message: 'Name is required', code: z.ZodIssueCode.custom });
+    if (!data.role?.trim()) ctx.addIssue({ path: ['role'], message: 'Role/Title is required', code: z.ZodIssueCode.custom });
+    if (!data.bio?.trim() || data.bio.length < 10) ctx.addIssue({ path: ['bio'], message: 'Bio must be at least 10 characters', code: z.ZodIssueCode.custom });
+  } else {
+    if (!data.companyName?.trim()) ctx.addIssue({ path: ['companyName'], message: 'Company Name is required', code: z.ZodIssueCode.custom });
+    if (!data.industry?.trim()) ctx.addIssue({ path: ['industry'], message: 'Industry is required', code: z.ZodIssueCode.custom });
+    if (!data.description?.trim() || data.description.length < 10) ctx.addIssue({ path: ['description'], message: 'Description must be at least 10 characters', code: z.ZodIssueCode.custom });
+  }
+});
+
 export default function SignupPage() {
-  const [userType, setUserType] = useState('employee');
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    role: '',
-    bio: '',
-    companyName: '',
-    industry: '',
-    description: ''
-  });
-  const [error, setError] = useState('');
+  const [authError, setAuthError] = useState('');
   const { signup } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setError('');
-
-    // Validation
-    if (!formData.email || !formData.name) {
-      setError('Please fill in all required fields');
-      return;
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm({
+    resolver: zodResolver(signupSchema),
+    defaultValues: {
+      userType: 'employee',
+      email: '', name: '', role: '', bio: '', companyName: '', industry: '', description: ''
     }
+  });
 
-    if (userType === 'employee' && (!formData.role || !formData.bio)) {
-      setError('Please fill in all required fields');
-      return;
-    }
+  const userType = watch('userType');
 
-    if (userType === 'employer' && (!formData.companyName || !formData.industry || !formData.description)) {
-      setError('Please fill in all required fields');
-      return;
-    }
+  // Clear fields when userType changes to prevent lingering errors
+  useEffect(() => {
+    setAuthError('');
+  }, [userType]);
 
-    // Create account
-    const success = signup(formData, userType);
+  const onSubmit = (data) => {
+    setAuthError('');
+    const success = signup(data, data.userType);
     
     if (success) {
-      navigate(userType === 'employee' ? '/employee/home' : '/employer/home');
+      navigate(data.userType === 'employee' ? '/employee/home' : '/employer/home');
     } else {
-      setError('An account with this email already exists');
+      setAuthError('An account with this email already exists');
     }
-  };
-
-  const handleChange = (field, value) => {
-    setFormData({ ...formData, [field]: value });
   };
 
   return (
@@ -62,8 +68,9 @@ export default function SignupPage() {
 
         <div className="user-type-selector">
           <button
+            type="button"
             className={`type-btn ${userType === 'employee' ? 'active' : ''}`}
-            onClick={() => setUserType('employee')}
+            onClick={() => setValue('userType', 'employee')}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -72,8 +79,9 @@ export default function SignupPage() {
             I'm looking for work
           </button>
           <button
+            type="button"
             className={`type-btn ${userType === 'employer' ? 'active' : ''}`}
-            onClick={() => setUserType('employer')}
+            onClick={() => setValue('userType', 'employer')}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
@@ -83,7 +91,7 @@ export default function SignupPage() {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="signup-form">
+        <form onSubmit={handleSubmit(onSubmit)} className="signup-form">
           {userType === 'employee' ? (
             <>
               <div className="form-group">
@@ -91,25 +99,23 @@ export default function SignupPage() {
                 <input
                   id="name"
                   type="text"
-                  className="input"
+                  className={`input ${errors.name ? 'input-error' : ''}`}
                   placeholder="John Doe"
-                  value={formData.name}
-                  onChange={(e) => handleChange('name', e.target.value)}
-                  required
+                  {...register('name')}
                 />
+                {errors.name && <span style={{ color: '#ef4444', fontSize: '0.85rem' }}>{errors.name.message}</span>}
               </div>
 
               <div className="form-group">
                 <label htmlFor="email">Email Address *</label>
                 <input
                   id="email"
-                  type="email"
-                  className="input"
+                  type="text"
+                  className={`input ${errors.email ? 'input-error' : ''}`}
                   placeholder="john@example.com"
-                  value={formData.email}
-                  onChange={(e) => handleChange('email', e.target.value)}
-                  required
+                  {...register('email')}
                 />
+                {errors.email && <span style={{ color: '#ef4444', fontSize: '0.85rem' }}>{errors.email.message}</span>}
               </div>
 
               <div className="form-group">
@@ -117,25 +123,23 @@ export default function SignupPage() {
                 <input
                   id="role"
                   type="text"
-                  className="input"
+                  className={`input ${errors.role ? 'input-error' : ''}`}
                   placeholder="e.g., Full-Stack Developer"
-                  value={formData.role}
-                  onChange={(e) => handleChange('role', e.target.value)}
-                  required
+                  {...register('role')}
                 />
+                {errors.role && <span style={{ color: '#ef4444', fontSize: '0.85rem' }}>{errors.role.message}</span>}
               </div>
 
               <div className="form-group">
                 <label htmlFor="bio">Bio *</label>
                 <textarea
                   id="bio"
-                  className="input textarea"
+                  className={`input textarea ${errors.bio ? 'input-error' : ''}`}
                   placeholder="Tell us about yourself and your experience..."
-                  value={formData.bio}
-                  onChange={(e) => handleChange('bio', e.target.value)}
                   rows="4"
-                  required
+                  {...register('bio')}
                 />
+                {errors.bio && <span style={{ color: '#ef4444', fontSize: '0.85rem' }}>{errors.bio.message}</span>}
               </div>
             </>
           ) : (
@@ -145,25 +149,23 @@ export default function SignupPage() {
                 <input
                   id="companyName"
                   type="text"
-                  className="input"
+                  className={`input ${errors.companyName ? 'input-error' : ''}`}
                   placeholder="Acme Corporation"
-                  value={formData.companyName}
-                  onChange={(e) => handleChange('companyName', e.target.value)}
-                  required
+                  {...register('companyName')}
                 />
+                {errors.companyName && <span style={{ color: '#ef4444', fontSize: '0.85rem' }}>{errors.companyName.message}</span>}
               </div>
 
               <div className="form-group">
                 <label htmlFor="email">Company Email *</label>
                 <input
                   id="email"
-                  type="email"
-                  className="input"
+                  type="text"
+                  className={`input ${errors.email ? 'input-error' : ''}`}
                   placeholder="hr@company.com"
-                  value={formData.email}
-                  onChange={(e) => handleChange('email', e.target.value)}
-                  required
+                  {...register('email')}
                 />
+                {errors.email && <span style={{ color: '#ef4444', fontSize: '0.85rem' }}>{errors.email.message}</span>}
               </div>
 
               <div className="form-group">
@@ -171,30 +173,28 @@ export default function SignupPage() {
                 <input
                   id="industry"
                   type="text"
-                  className="input"
+                  className={`input ${errors.industry ? 'input-error' : ''}`}
                   placeholder="e.g., Technology, Finance, Healthcare"
-                  value={formData.industry}
-                  onChange={(e) => handleChange('industry', e.target.value)}
-                  required
+                  {...register('industry')}
                 />
+                {errors.industry && <span style={{ color: '#ef4444', fontSize: '0.85rem' }}>{errors.industry.message}</span>}
               </div>
 
               <div className="form-group">
                 <label htmlFor="description">Company Description *</label>
                 <textarea
                   id="description"
-                  className="input textarea"
+                  className={`input textarea ${errors.description ? 'input-error' : ''}`}
                   placeholder="Describe your company and what you do..."
-                  value={formData.description}
-                  onChange={(e) => handleChange('description', e.target.value)}
                   rows="4"
-                  required
+                  {...register('description')}
                 />
+                {errors.description && <span style={{ color: '#ef4444', fontSize: '0.85rem' }}>{errors.description.message}</span>}
               </div>
             </>
           )}
 
-          {error && <div className="error-message">{error}</div>}
+          {authError && <div className="error-message">{authError}</div>}
 
           <button type="submit" className="btn btn-primary w-full">
             Create Account

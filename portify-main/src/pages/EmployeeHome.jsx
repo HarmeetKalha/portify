@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import SearchBar from '../components/SearchBar';
 import RecentlyViewed from '../components/RecentlyViewed';
 import { mockEmployers } from '../data/mockData';
 import './EmployeeHome.css';
@@ -10,7 +9,7 @@ export default function EmployeeHome() {
   const navigate = useNavigate();
 
   const workplaceSuggestions = mockEmployers.filter(emp => 
-    !emp.employees?.includes(user?.id)
+    !emp.employees?.includes(user?.id) && emp.isPublic !== false
   ).slice(0, 3);
 
   const hasAnyPortfolioContent = (() => {
@@ -29,18 +28,7 @@ export default function EmployeeHome() {
 
   return (
     <div className="employee-home">
-      <header className="home-header">
-        <div className="header-content">
-          <h1 className="text-gradient">Portify</h1>
-          <div className="header-actions">
-            <span className="user-name">Welcome, {user?.name}</span>
-            <button className="btn btn-outline" onClick={logout}>Logout</button>
-          </div>
-        </div>
-        <SearchBar />
-      </header>
-
-      <div className="grid-3">
+      <div className="grid-3" style={{ marginTop: '2rem' }}>
         <aside className="sidebar-left">
           <RecentlyViewed />
         </aside>

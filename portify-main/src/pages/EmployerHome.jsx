@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import SearchBar from '../components/SearchBar';
 import RecentlyViewed from '../components/RecentlyViewed';
 import { mockEmployees } from '../data/mockData';
 import { matchEmployeesToRequirements } from '../utils/matchingEngine';
@@ -27,18 +26,7 @@ export default function EmployerHome() {
 
   return (
     <div className="employer-home">
-      <header className="home-header">
-        <div className="header-content">
-          <h1 className="text-gradient">Portify</h1>
-          <div className="header-actions">
-            <span className="user-name">{user?.companyName}</span>
-            <button className="btn btn-outline" onClick={logout}>Logout</button>
-          </div>
-        </div>
-        <SearchBar />
-      </header>
-
-      <div className="grid-3">
+      <div className="grid-3" style={{ marginTop: '2rem' }}>
         <aside className="sidebar-left">
           <RecentlyViewed />
           <div className="glass-card mt-3">
@@ -138,6 +126,24 @@ export default function EmployerHome() {
                   Team Leader
                 </button>
               </div>
+            </div>
+          </div>
+
+          <div className="glass-card mt-3">
+            <h3>Profile Visibility</h3>
+            <p className="section-subtitle">
+              Control whether your company profile is visible to candidates in search and suggestions.
+            </p>
+            <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+              <span className="tag" style={{ textTransform: 'uppercase' }}>
+                {user?.isPublic === false ? 'Private' : 'Public'}
+              </span>
+              <button
+                className="btn btn-secondary"
+                onClick={() => updateUserProfile({ isPublic: user?.isPublic === false ? true : false })}
+              >
+                {user?.isPublic === false ? 'Make Profile Public' : 'Make Profile Private'}
+              </button>
             </div>
           </div>
         </main>

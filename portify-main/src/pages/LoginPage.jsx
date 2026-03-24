@@ -1,31 +1,40 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import { useAuth } from '../context/AuthContext';
 import './LoginPage.css';
 
+const loginSchema = z.object({
+  email: z.string().min(1, 'Email is required').email('Please enter a valid email address')
+});
+
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
   const [userType, setUserType] = useState('employee');
-  const [error, setError] = useState('');
+  const [authError, setAuthError] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setError('');
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: '' }
+  });
 
-    if (!email) {
-      setError('Please enter your email');
-      return;
-    }
-
-    const success = login(email, userType);
+  const onSubmit = (data) => {
+    setAuthError('');
+    const success = login(data.email, userType);
     
     if (success) {
       navigate(userType === 'employee' ? '/employee/home' : '/employer/home');
     } else {
-      setError('Invalid credentials. Try one of the demo accounts below.');
+      setAuthError('Invalid credentials. Try one of the demo accounts below.');
     }
+  };
+
+  const handleDemoClick = (email) => {
+    setValue('email', email, { shouldValidate: true });
+    // Auto submit doesn't happen with just setValue, but the user can click Sign In 
   };
 
   const demoAccounts = {
@@ -50,6 +59,7 @@ export default function LoginPage() {
 
         <div className="user-type-selector">
           <button
+            type="button"
             className={`type-btn ${userType === 'employee' ? 'active' : ''}`}
             onClick={() => setUserType('employee')}
           >
@@ -60,6 +70,7 @@ export default function LoginPage() {
             I'm looking for work
           </button>
           <button
+            type="button"
             className={`type-btn ${userType === 'employer' ? 'active' : ''}`}
             onClick={() => setUserType('employer')}
           >
@@ -71,20 +82,20 @@ export default function LoginPage() {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="login-form">
+        <form onSubmit={handleSubmit(onSubmit)} className="login-form">
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
             <input
               id="email"
-              type="email"
-              className="input"
+              type="text"
+              className={`input ${errors.email ? 'input-error' : ''}`}
               placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register('email')}
             />
+            {errors.email && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '0.25rem' }}>{errors.email.message}</span>}
           </div>
 
-          {error && <div className="error-message">{error}</div>}
+          {authError && <div className="error-message">{authError}</div>}
 
           <button type="submit" className="btn btn-primary w-full">
             Sign In
@@ -97,8 +108,9 @@ export default function LoginPage() {
             {demoAccounts[userType].map((account) => (
               <button
                 key={account.email}
+                type="button"
                 className="demo-account-btn"
-                onClick={() => setEmail(account.email)}
+                onClick={() => handleDemoClick(account.email)}
               >
                 {account.name}
               </button>
@@ -113,4 +125,3 @@ export default function LoginPage() {
     </div>
   );
 }
-

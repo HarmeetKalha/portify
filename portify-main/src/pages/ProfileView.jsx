@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth, getAllAccounts } from '../context/AuthContext';
 import { addApplication, hasEmployeeApplied } from '../utils/applicationsStore';
+import { createOrGetThread } from '../utils/messagesStore';
 import './ProfileView.css';
 
 export default function ProfileView() {
@@ -22,6 +23,12 @@ export default function ProfileView() {
     coverLetter: ''
   }));
   const [applyError, setApplyError] = useState('');
+
+  const handleMessage = () => {
+    if (!user) return;
+    const thread = createOrGetThread(user, profile);
+    navigate('/messages', { state: { activeThreadId: thread.id } });
+  };
   
   // Search in both employees and employers (including custom accounts)
   const allEmployees = getAllAccounts('employee');
@@ -35,6 +42,25 @@ export default function ProfileView() {
       <div className="profile-view">
         <div className="not-found glass-card">
           <h2>Profile not found</h2>
+          <button className="btn btn-primary" onClick={() => navigate(-1)}>
+            Go Back
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const isOwner = user && String(user.id) === String(profile.id);
+  if (profile.isPublic === false && !isOwner) {
+    return (
+      <div className="profile-view">
+        <div className="not-found glass-card">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ marginBottom: '1rem', color: 'var(--text-secondary)' }}>
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+          <h2>This profile is private</h2>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>The user has chosen not to make their profile publicly visible.</p>
           <button className="btn btn-primary" onClick={() => navigate(-1)}>
             Go Back
           </button>
@@ -125,8 +151,8 @@ export default function ProfileView() {
                 <div className="profile-tags-large">
                   <span className="tag tag-accent">Employer</span>
                 </div>
-                {canApply && (
-                  <div style={{ marginTop: 12, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                <div style={{ marginTop: 12, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                  {canApply && (
                     <button
                       className="btn btn-primary"
                       onClick={openApply}
@@ -135,8 +161,13 @@ export default function ProfileView() {
                     >
                       {alreadyApplied ? 'Applied' : 'Apply to Company'}
                     </button>
-                  </div>
-                )}
+                  )}
+                  {user && String(user.id) !== String(profile.id) && (
+                    <button className="btn btn-secondary" onClick={handleMessage}>
+                      Message
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -306,6 +337,13 @@ export default function ProfileView() {
                 <div className="profile-tags-large">
                   <span className="tag tag-primary">{profile.tags.technical}</span>
                   <span className="tag tag-success">{profile.tags.softSkill}</span>
+                </div>
+              )}
+              {user && String(user.id) !== String(profile.id) && (
+                <div style={{ marginTop: 12 }}>
+                  <button className="btn btn-primary" onClick={handleMessage}>
+                    Message
+                  </button>
                 </div>
               )}
             </div>

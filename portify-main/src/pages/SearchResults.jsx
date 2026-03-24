@@ -12,7 +12,7 @@ export default function SearchResults() {
 
   // Get all employees and employers (including custom accounts)
   const allEmployees = getAllAccounts('employee').filter(emp => emp.isPublic !== false);
-  const allEmployers = getAllAccounts('employer');
+  const allEmployers = getAllAccounts('employer').filter(emp => emp.isPublic !== false);
   
   const results = searchByName(query, allEmployees, allEmployers);
 
