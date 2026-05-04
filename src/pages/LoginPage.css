@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: center;
   padding: var(--spacing-md);
-  background: radial-gradient(circle at top right, rgba(102, 126, 234, 0.1), transparent 50%),
-              radial-gradient(circle at bottom left, rgba(118, 75, 162, 0.1), transparent 50%);
+  background: radial-gradient(circle at top right, rgba(74, 222, 128, 0.15), transparent 50%),
+              radial-gradient(circle at bottom left, rgba(22, 163, 74, 0.1), transparent 50%);
 }
 
 .login-container {
@@ -64,19 +64,19 @@
 }
 
 .type-btn:hover {
-  border-color: #667eea;
+  border-color: #16a34a;
   background: var(--bg-hover);
 }
 
 .type-btn.active {
-  border-color: #667eea;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
-  color: var(--text-primary);
+  border-color: #16a34a;
+  background: linear-gradient(135deg, rgba(22, 163, 74, 0.12) 0%, rgba(5, 150, 105, 0.12) 100%);
+  color: #14532d;
 }
 
 .type-btn.active svg {
   opacity: 1;
-  color: #667eea;
+  color: #16a34a;
 }
 
 .login-form {
@@ -124,22 +124,42 @@
 }
 
 .demo-account-btn {
-  padding: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
   background: transparent;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
-  font-size: 0.875rem;
   cursor: pointer;
   transition: all var(--transition-fast);
   text-align: left;
   font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.demo-account-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.demo-account-role {
+  font-size: 0.775rem;
+  color: var(--text-muted);
 }
 
 .demo-account-btn:hover {
   background: var(--bg-hover);
-  border-color: #667eea;
-  color: var(--text-primary);
+  border-color: #16a34a;
+}
+
+.demo-account-btn:hover .demo-account-name {
+  color: #15803d;
+}
+
+.demo-account-btn:hover .demo-account-role {
+  color: var(--text-secondary);
 }
 
 .login-footer {
@@ -156,13 +176,13 @@
 }
 
 .link {
-  color: #667eea;
+  color: #16a34a;
   text-decoration: none;
   font-weight: 500;
   transition: color var(--transition-fast);
 }
 
 .link:hover {
-  color: #a5b4fc;
+  color: #15803d;
 }
 

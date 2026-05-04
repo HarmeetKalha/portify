@@ -2,54 +2,55 @@
 export const mockEmployees = [
   {
     id: 1,
-    name: "Sarah Chen",
-    email: "sarah.chen@email.com",
+    name: "Arjun Sharma",
+    email: "arjun.sharma@email.com",
+    password: "1234",
     role: "Full-Stack Developer",
-    profilePicture: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-    bio: "Passionate full-stack developer with 5 years of experience building scalable web applications. Love working with modern frameworks and solving complex problems.",
+    profilePicture: "https://api.dicebear.com/7.x/avataaars/svg?seed=Arjun",
+    bio: "Passionate full-stack developer with 6 years of experience building scalable web applications for fintech and e-commerce. Loves clean code, system design, and mentoring junior engineers.",
     portfolio: {
       projects: [
         {
-          title: "E-Commerce Platform",
-          description: "Built a complete e-commerce solution with React, Node.js, and MongoDB. Implemented payment processing, inventory management, and real-time notifications.",
-          technologies: ["React", "Node.js", "MongoDB", "Stripe", "Socket.io"],
-          link: "https://github.com/example/ecommerce"
+          title: "PayFlow – Payments Dashboard",
+          description: "Architected a real-time payments dashboard processing ₹10Cr+ daily transactions with React, Node.js, and PostgreSQL. Integrated UPI, NEFT, and IMPS APIs.",
+          technologies: ["React", "Node.js", "PostgreSQL", "Redis", "UPI API"],
+          link: "https://github.com/arjunsharma/payflow"
         },
         {
-          title: "AI Chatbot Assistant",
-          description: "Developed an intelligent chatbot using natural language processing and machine learning to provide customer support.",
-          technologies: ["Python", "TensorFlow", "Flask", "React"],
-          link: "https://github.com/example/chatbot"
+          title: "ShopKart – E-Commerce Platform",
+          description: "Built a fully featured multi-vendor e-commerce platform with dynamic inventory, Razorpay integration, and an admin analytics panel.",
+          technologies: ["Next.js", "Express", "MongoDB", "Razorpay", "AWS S3"],
+          link: "https://github.com/arjunsharma/shopkart"
         }
       ],
       experience: [
         {
-          company: "TechCorp Inc.",
-          role: "Senior Full-Stack Developer",
-          duration: "2021 - Present",
-          description: "Led development of microservices architecture. Mentored junior developers and improved deployment processes, reducing deployment time by 60%."
+          company: "Infosys Ltd.",
+          role: "Senior Software Engineer",
+          duration: "2021 – Present",
+          description: "Led a team of 6 engineers building microservices for the banking domain. Reduced API latency by 45% through caching and query optimisation."
         },
         {
-          company: "StartupXYZ",
-          role: "Full-Stack Developer",
-          duration: "2019 - 2021",
-          description: "Built core features for SaaS platform. Worked closely with product team to deliver user-centric solutions."
+          company: "Wipro Technologies",
+          role: "Software Engineer",
+          duration: "2018 – 2021",
+          description: "Developed REST APIs and frontend modules for enterprise resource planning systems. Collaborated with global clients across 4 time zones."
         }
       ],
       socials: {
-        linkedin: "https://linkedin.com/in/sarachen",
-        github: "https://github.com/sarachen",
-        twitter: "https://twitter.com/sarachen",
-        portfolio: "https://sarachen.dev"
+        linkedin: "https://linkedin.com/in/arjunsharma",
+        github: "https://github.com/arjunsharma",
+        twitter: "https://twitter.com/arjunsharma_dev",
+        portfolio: "https://arjunsharma.dev"
       },
       education: [
         {
-          degree: "B.S. Computer Science",
-          institution: "Stanford University",
-          year: "2019"
+          degree: "B.Tech Computer Science & Engineering",
+          institution: "IIT Bombay",
+          year: "2018"
         }
       ],
-      skills: ["React", "Node.js", "Python", "MongoDB", "PostgreSQL", "AWS", "Docker", "Kubernetes", "TensorFlow", "GraphQL"]
+      skills: ["React", "Next.js", "Node.js", "PostgreSQL", "MongoDB", "Redis", "Docker", "AWS", "System Design", "GraphQL"]
     },
     tags: {
       technical: "Full-Stack Developer",
@@ -58,91 +59,111 @@ export const mockEmployees = [
   },
   {
     id: 2,
-    name: "Marcus Johnson",
-    email: "marcus.j@email.com",
+    name: "Priya Nair",
+    email: "priya.nair@email.com",
+    password: "1234",
     role: "AI/ML Engineer",
-    profilePicture: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
-    bio: "AI enthusiast specializing in deep learning and computer vision. Published researcher with a passion for solving real-world problems using artificial intelligence.",
+    profilePicture: "https://api.dicebear.com/7.x/avataaars/svg?seed=PriyaNair",
+    bio: "AI/ML engineer specialising in NLP and computer vision with 4 years of research and production experience. Published author with a love for applied mathematics and real-world AI solutions.",
     portfolio: {
       projects: [
         {
-          title: "Medical Image Analysis",
-          description: "Developed deep learning models for detecting anomalies in medical images with 95% accuracy.",
-          technologies: ["Python", "PyTorch", "OpenCV", "FastAPI"],
-          link: "https://github.com/example/medical-ai"
+          title: "Bhasha – Multilingual NLP Engine",
+          description: "Built a production-grade NLP engine supporting 10 Indian languages for sentiment analysis and named-entity recognition, achieving 91% F1 score.",
+          technologies: ["Python", "PyTorch", "Hugging Face", "FastAPI", "Docker"],
+          link: "https://github.com/priyanair/bhasha"
         },
         {
-          title: "Recommendation Engine",
-          description: "Built a scalable recommendation system serving 1M+ users using collaborative filtering and neural networks.",
-          technologies: ["Python", "TensorFlow", "Redis", "Kafka"],
-          link: "https://github.com/example/recommender"
+          title: "RetinalScan AI",
+          description: "Developed a deep learning pipeline to detect diabetic retinopathy from fundus images with 94% accuracy, deployed on GCP.",
+          technologies: ["Python", "TensorFlow", "OpenCV", "GCP", "Flask"],
+          link: "https://github.com/priyanair/retinalscan"
         }
       ],
       experience: [
         {
-          company: "AI Labs",
+          company: "Samsung R&D India",
           role: "Senior ML Engineer",
-          duration: "2020 - Present",
-          description: "Research and development of state-of-the-art machine learning models. Published 3 papers in top-tier conferences."
+          duration: "2022 – Present",
+          description: "Researching on-device AI models for low-power inference on Galaxy devices. Filed 2 patents in transformer model compression."
+        },
+        {
+          company: "Fractal Analytics",
+          role: "Data Scientist",
+          duration: "2020 – 2022",
+          description: "Delivered predictive analytics solutions for Fortune 500 clients in FMCG and insurance verticals."
         }
       ],
       socials: {
-        linkedin: "https://linkedin.com/in/marcusj",
-        github: "https://github.com/marcusj",
-        twitter: "https://twitter.com/marcusj",
-        portfolio: "https://marcusj.ai"
+        linkedin: "https://linkedin.com/in/priyanair-ml",
+        github: "https://github.com/priyanair",
+        twitter: "https://twitter.com/priyanair_ai",
+        portfolio: "https://priyanair.ai"
       },
       education: [
         {
-          degree: "Ph.D. Machine Learning",
-          institution: "MIT",
+          degree: "M.Tech Artificial Intelligence",
+          institution: "IIT Madras",
           year: "2020"
         }
       ],
-      skills: ["Python", "TensorFlow", "PyTorch", "Computer Vision", "NLP", "Deep Learning", "AWS", "Docker", "Research"]
+      skills: ["Python", "PyTorch", "TensorFlow", "NLP", "Computer Vision", "Hugging Face", "GCP", "Docker", "Research", "MLOps"]
     },
     tags: {
-      technical: "AI Specialist",
-      softSkill: "Detail-Oriented"
+      technical: "AI/ML Specialist",
+      softSkill: "Analytical Thinker"
     }
   },
   {
     id: 3,
-    name: "Emily Rodriguez",
-    email: "emily.r@email.com",
+    name: "Rohan Mehta",
+    email: "rohan.mehta@email.com",
+    password: "1234",
     role: "Frontend Developer",
-    profilePicture: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
-    bio: "Creative frontend developer focused on building beautiful, accessible, and performant user interfaces. Strong advocate for user experience and design systems.",
+    profilePicture: "https://api.dicebear.com/7.x/avataaars/svg?seed=RohanMehta",
+    bio: "Creative frontend developer with 5 years of experience crafting pixel-perfect, accessible UIs. Obsessed with performance, design systems, and delightful micro-animations.",
     portfolio: {
       projects: [
         {
-          title: "Design System Library",
-          description: "Created a comprehensive design system used across 20+ products, improving development speed by 40%.",
-          technologies: ["React", "TypeScript", "Storybook", "CSS-in-JS"],
-          link: "https://github.com/example/design-system"
+          title: "DesignKit – UI Component Library",
+          description: "Open-source React component library with 80+ components, full dark mode, accessibility-first design, and Storybook documentation.",
+          technologies: ["React", "TypeScript", "Storybook", "Radix UI", "CSS Modules"],
+          link: "https://github.com/rohanmehta/designkit"
+        },
+        {
+          title: "Vyaapar – SME Business Suite",
+          description: "Redesigned and built the frontend of a business management SaaS used by 15,000+ Indian SMEs. Improved Core Web Vitals scores by 60%.",
+          technologies: ["React", "Vite", "TailwindCSS", "Chart.js", "Zustand"],
+          link: "https://github.com/rohanmehta/vyaapar"
         }
       ],
       experience: [
         {
-          company: "DesignTech",
-          role: "Lead Frontend Developer",
-          duration: "2020 - Present",
-          description: "Spearheaded frontend architecture decisions. Championed accessibility standards and performance optimization."
+          company: "Razorpay",
+          role: "Senior Frontend Engineer",
+          duration: "2022 – Present",
+          description: "Built and maintained the Razorpay Dashboard used by 500,000+ merchants. Led the migration from Angular to React, reducing bundle size by 38%."
+        },
+        {
+          company: "Zoho Corporation",
+          role: "Frontend Developer",
+          duration: "2019 – 2022",
+          description: "Developed UI modules for Zoho CRM and Zoho Projects. Introduced component-driven architecture that cut dev time by 30%."
         }
       ],
       socials: {
-        linkedin: "https://linkedin.com/in/emilyrodriguez",
-        github: "https://github.com/emilyrodriguez",
-        portfolio: "https://emilyrodriguez.design"
+        linkedin: "https://linkedin.com/in/rohanmehta",
+        github: "https://github.com/rohanmehta",
+        portfolio: "https://rohanmehta.design"
       },
       education: [
         {
-          degree: "B.A. Interactive Media",
-          institution: "NYU",
-          year: "2020"
+          degree: "B.E. Information Technology",
+          institution: "BITS Pilani",
+          year: "2019"
         }
       ],
-      skills: ["React", "Vue.js", "TypeScript", "CSS", "HTML", "Accessibility", "Performance", "Design Systems", "Figma"]
+      skills: ["React", "TypeScript", "Vue.js", "HTML5", "CSS3", "Figma", "Performance Optimisation", "Accessibility", "Design Systems", "Vite"]
     },
     tags: {
       technical: "Frontend Specialist",
@@ -151,86 +172,112 @@ export const mockEmployees = [
   },
   {
     id: 4,
-    name: "David Kim",
-    email: "david.kim@email.com",
-    role: "DevOps Engineer",
-    profilePicture: "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
-    bio: "DevOps engineer passionate about automation, infrastructure as code, and building reliable systems. Expert in cloud platforms and CI/CD pipelines.",
+    name: "Kavya Reddy",
+    email: "kavya.reddy@email.com",
+    password: "1234",
+    role: "DevOps & Cloud Engineer",
+    profilePicture: "https://api.dicebear.com/7.x/avataaars/svg?seed=KavyaReddy",
+    bio: "DevOps engineer with 5 years of expertise in cloud infrastructure, CI/CD automation, and site reliability engineering. Committed to building resilient, cost-efficient systems at scale.",
     portfolio: {
       projects: [
         {
-          title: "Kubernetes Orchestration",
-          description: "Designed and implemented Kubernetes infrastructure handling 10M+ requests per day with 99.99% uptime.",
-          technologies: ["Kubernetes", "Docker", "Terraform", "AWS", "Prometheus"],
-          link: "https://github.com/example/k8s-infra"
+          title: "CloudGuard – Multi-Cloud Cost Optimiser",
+          description: "Built an automated cost-optimisation tool across AWS, GCP, and Azure that saved organisations ₹2Cr annually through right-sizing and reserved instance management.",
+          technologies: ["Python", "Terraform", "AWS", "GCP", "Azure", "Grafana"],
+          link: "https://github.com/kavyareddy/cloudguard"
+        },
+        {
+          title: "ZeroDown – High-Availability Kubernetes Platform",
+          description: "Designed a Kubernetes platform for mission-critical workloads achieving 99.995% uptime across 40+ microservices.",
+          technologies: ["Kubernetes", "Helm", "Istio", "Prometheus", "ArgoCD"],
+          link: "https://github.com/kavyareddy/zerodown"
         }
       ],
       experience: [
         {
-          company: "CloudScale",
+          company: "Flipkart",
           role: "Senior DevOps Engineer",
-          duration: "2019 - Present",
-          description: "Managed cloud infrastructure and deployment pipelines. Reduced deployment failures by 80% through automation."
+          duration: "2021 – Present",
+          description: "Manage cloud infrastructure for peak-season traffic (Big Billion Days) handling 1B+ API requests/day. Reduced incident MTTR by 70% through automated runbooks."
+        },
+        {
+          company: "Mindtree Ltd.",
+          role: "Cloud Engineer",
+          duration: "2019 – 2021",
+          description: "Implemented CI/CD pipelines and Infrastructure as Code for 12 enterprise clients, cutting release cycles from 2 weeks to 4 hours."
         }
       ],
       socials: {
-        linkedin: "https://linkedin.com/in/davidkim",
-        github: "https://github.com/davidkim"
+        linkedin: "https://linkedin.com/in/kavyareddy-devops",
+        github: "https://github.com/kavyareddy"
       },
       education: [
         {
-          degree: "B.S. Information Systems",
-          institution: "UC Berkeley",
+          degree: "B.Tech Electronics & Communication",
+          institution: "NIT Warangal",
           year: "2019"
         }
       ],
-      skills: ["Kubernetes", "Docker", "AWS", "Terraform", "Jenkins", "GitLab CI", "Monitoring", "Linux", "Python"]
+      skills: ["Kubernetes", "Docker", "Terraform", "AWS", "GCP", "Azure", "Jenkins", "ArgoCD", "Prometheus", "Python", "Linux", "SRE"]
     },
     tags: {
-      technical: "DevOps Specialist",
+      technical: "DevOps & Cloud Expert",
       softSkill: "High-Pressure Performer"
     }
   },
   {
     id: 5,
-    name: "Priya Patel",
-    email: "priya.p@email.com",
+    name: "Vikram Iyer",
+    email: "vikram.iyer@email.com",
+    password: "1234",
     role: "Data Scientist",
-    profilePicture: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
-    bio: "Data scientist with expertise in statistical modeling and predictive analytics. Experienced in turning data into actionable business insights.",
+    profilePicture: "https://api.dicebear.com/7.x/avataaars/svg?seed=VikramIyer",
+    bio: "Data scientist with 5 years of experience in statistical modelling, predictive analytics, and building data pipelines. Passionate about translating raw data into clear business strategies.",
     portfolio: {
       projects: [
         {
-          title: "Customer Churn Prediction",
-          description: "Built predictive models that reduced customer churn by 25% through early intervention strategies.",
-          technologies: ["Python", "Scikit-learn", "Pandas", "SQL", "Tableau"],
-          link: "https://github.com/example/churn-model"
+          title: "LoanSafe – Credit Risk Prediction",
+          description: "Developed an ML model to predict loan default risk for a leading NBFC, reducing NPAs by 18% and improving approval accuracy by 22%.",
+          technologies: ["Python", "XGBoost", "Scikit-learn", "SQL", "Power BI"],
+          link: "https://github.com/vikramiyer/loansafe"
+        },
+        {
+          title: "AgriPredict – Crop Yield Forecasting",
+          description: "Built a satellite imagery + weather data pipeline to forecast crop yields for 50,000 farmers across Maharashtra and AP, used by the state agriculture department.",
+          technologies: ["Python", "Pandas", "GIS", "Random Forest", "Streamlit"],
+          link: "https://github.com/vikramiyer/agripredict"
         }
       ],
       experience: [
         {
-          company: "DataCorp",
+          company: "HDFC Bank – Analytics CoE",
           role: "Senior Data Scientist",
-          duration: "2020 - Present",
-          description: "Led data science initiatives across multiple business units. Delivered insights that drove $5M in revenue growth."
+          duration: "2021 – Present",
+          description: "Leads a 4-person data science team delivering models for credit risk, fraud detection, and customer lifetime value. Generated ₹120Cr additional revenue in FY24."
+        },
+        {
+          company: "Mu Sigma",
+          role: "Decision Scientist",
+          duration: "2019 – 2021",
+          description: "Delivered analytics and machine learning solutions for retail, healthcare, and logistics clients across the US and India."
         }
       ],
       socials: {
-        linkedin: "https://linkedin.com/in/priyapatel",
-        github: "https://github.com/priyapatel"
+        linkedin: "https://linkedin.com/in/vikramiyer-data",
+        github: "https://github.com/vikramiyer"
       },
       education: [
         {
-          degree: "M.S. Statistics",
-          institution: "Columbia University",
-          year: "2020"
+          degree: "M.Sc. Statistics",
+          institution: "Chennai Mathematical Institute",
+          year: "2019"
         }
       ],
-      skills: ["Python", "R", "SQL", "Machine Learning", "Statistics", "Tableau", "Pandas", "Scikit-learn", "A/B Testing"]
+      skills: ["Python", "R", "SQL", "Machine Learning", "XGBoost", "Statistics", "Power BI", "Tableau", "Pandas", "Scikit-learn", "A/B Testing"]
     },
     tags: {
       technical: "Data Science Expert",
-      softSkill: "Analytical Thinker"
+      softSkill: "Strategic Communicator"
     }
   }
 ];
@@ -238,34 +285,75 @@ export const mockEmployees = [
 export const mockEmployers = [
   {
     id: 101,
-    name: "TechVentures Inc.",
-    email: "hr@techventures.com",
+    name: "TechVentures India Pvt. Ltd.",
+    email: "hr@techventuresindia.com",
+    password: "1234",
     type: "employer",
-    companyName: "TechVentures Inc.",
+    companyName: "TechVentures India Pvt. Ltd.",
     industry: "Technology",
     logo: "https://api.dicebear.com/7.x/initials/svg?seed=TechVentures",
-    description: "Leading technology company focused on innovative solutions for enterprise clients.",
-    employees: [1, 3], // Sarah and Emily work here
+    description: "A Bengaluru-based product company building next-generation SaaS platforms for global enterprise clients. We invest in people, innovation, and open-source culture.",
+    employees: [1, 3],
     recentlyViewed: [2, 4]
   },
   {
     id: 102,
-    name: "AI Innovations",
-    email: "careers@aiinnovations.com",
+    name: "NeuralBridge AI Labs",
+    email: "careers@neuralbridgeai.com",
+    password: "1234",
     type: "employer",
-    companyName: "AI Innovations",
+    companyName: "NeuralBridge AI Labs",
     industry: "Artificial Intelligence",
-    logo: "https://api.dicebear.com/7.x/initials/svg?seed=AI",
-    description: "Cutting-edge AI research and development company pushing the boundaries of machine learning.",
-    employees: [2], // Marcus works here
+    logo: "https://api.dicebear.com/7.x/initials/svg?seed=NeuralBridge",
+    description: "India's fastest-growing applied AI research company, with teams in Hyderabad and Singapore. We build AI-first products for healthcare, fintech, and smart cities.",
+    employees: [2],
     recentlyViewed: [1, 5]
+  },
+  {
+    id: 103,
+    name: "InfraEdge Solutions",
+    email: "talent@infraedge.io",
+    password: "1234",
+    type: "employer",
+    companyName: "InfraEdge Solutions",
+    industry: "Cloud Infrastructure",
+    logo: "https://api.dicebear.com/7.x/initials/svg?seed=InfraEdge",
+    description: "A cloud-native infrastructure company helping Indian startups and enterprises scale reliably. We specialise in multi-cloud architecture, DevSecOps, and platform engineering.",
+    employees: [4],
+    recentlyViewed: [1, 2]
+  },
+  {
+    id: 104,
+    name: "DataSutra Analytics",
+    email: "jobs@datasutra.in",
+    password: "1234",
+    type: "employer",
+    companyName: "DataSutra Analytics",
+    industry: "Data & Analytics",
+    logo: "https://api.dicebear.com/7.x/initials/svg?seed=DataSutra",
+    description: "A Mumbai-headquartered data intelligence firm powering decisions for BFSI, retail, and healthcare enterprises across India. Our platform processes over 5 billion data points daily.",
+    employees: [5],
+    recentlyViewed: [2, 3]
+  },
+  {
+    id: 105,
+    name: "Kalpavriksha Digital",
+    email: "hr@kalpavriksha.tech",
+    password: "1234",
+    type: "employer",
+    companyName: "Kalpavriksha Digital",
+    industry: "Digital Transformation",
+    logo: "https://api.dicebear.com/7.x/initials/svg?seed=Kalpavriksha",
+    description: "A digital transformation consultancy headquartered in Pune, serving mid-market and enterprise clients across manufacturing, retail, and government sectors in India.",
+    employees: [1, 3],
+    recentlyViewed: [4, 5]
   }
 ];
 
 // Recently viewed tracking (in a real app, this would be in a database)
 export const recentlyViewedData = {
   employee: {
-    1: [2, 3, 4], // Sarah recently viewed Marcus, Emily, David
+    1: [2, 3, 4],
     2: [1, 5],
     3: [1, 2],
     4: [1, 3],
@@ -273,6 +361,9 @@ export const recentlyViewedData = {
   },
   employer: {
     101: [2, 4, 5],
-    102: [1, 3, 4]
+    102: [1, 3, 4],
+    103: [1, 2, 5],
+    104: [1, 3, 4],
+    105: [2, 4, 5]
   }
 };

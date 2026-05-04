@@ -30,7 +30,7 @@
 .back-btn:hover {
   background: var(--bg-hover);
   color: var(--text-primary);
-  border-color: #667eea;
+  border-color: #16a34a;
 }
 
 .page-header h1 {

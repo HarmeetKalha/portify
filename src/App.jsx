@@ -5,6 +5,7 @@ import SignupPage from './pages/SignupPage';
 import EmployeeHome from './pages/EmployeeHome';
 import EmployerHome from './pages/EmployerHome';
 import PortfolioBuilder from './pages/PortfolioBuilder';
+import InventoryPage from './pages/InventoryPage';
 import SuggestedAccounts from './pages/SuggestedAccounts';
 import ProfileView from './pages/ProfileView';
 import SearchResults from './pages/SearchResults';
@@ -55,6 +56,15 @@ function AppRoutes() {
         element={
           <ProtectedRoute requiredType="employee">
             <PortfolioBuilder />
+          </ProtectedRoute>
+        } 
+      />
+
+      <Route 
+        path="/employee/inventory" 
+        element={
+          <ProtectedRoute requiredType="employee">
+            <InventoryPage />
           </ProtectedRoute>
         } 
       />

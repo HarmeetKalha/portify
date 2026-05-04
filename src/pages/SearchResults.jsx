@@ -1,5 +1,7 @@
+import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { useAuth, getAllAccounts } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
+import { api } from '../services/api';
 import { searchByName } from '../utils/matchingEngine';
 import ProfileCard from '../components/ProfileCard';
 import './SuggestedAccounts.css';
@@ -9,12 +11,17 @@ export default function SearchResults() {
   const navigate = useNavigate();
   const { addToRecentlyViewed } = useAuth();
   const query = searchParams.get('q') || '';
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Get all employees and employers (including custom accounts)
-  const allEmployees = getAllAccounts('employee');
-  const allEmployers = getAllAccounts('employer');
-  
-  const results = searchByName(query, allEmployees, allEmployers);
+  useEffect(() => {
+    Promise.all([api.getEmployees(), api.getEmployers()])
+      .then(([employees, employers]) => {
+        setResults(searchByName(query, employees, employers));
+      })
+      .catch(() => setResults([]))
+      .finally(() => setLoading(false));
+  }, [query]);
 
   return (
     <div className="suggested-accounts">
@@ -30,14 +37,16 @@ export default function SearchResults() {
 
       <div className="search-criteria glass-card">
         <h3>Searching for: "{query}"</h3>
-        <p>{results.length} result{results.length !== 1 ? 's' : ''} found</p>
+        <p>{loading ? 'Searching...' : `${results.length} result${results.length !== 1 ? 's' : ''} found`}</p>
       </div>
 
       <div className="profiles-grid">
-        {results.length > 0 ? (
+        {loading ? (
+          <div className="no-results glass-card"><p>Loading...</p></div>
+        ) : results.length > 0 ? (
           results.map(profile => (
-            <ProfileCard 
-              key={profile.id} 
+            <ProfileCard
+              key={profile.id}
               profile={profile}
               onClick={addToRecentlyViewed}
             />
@@ -56,4 +65,3 @@ export default function SearchResults() {
     </div>
   );
 }
-

@@ -69,7 +69,7 @@
 
 .quick-btn:hover {
   background: var(--bg-hover);
-  border-color: #667eea;
+  border-color: #16a34a;
   color: var(--text-primary);
 }
 
@@ -124,3 +124,179 @@
   gap: var(--spacing-xs);
   flex-wrap: wrap;
 }
+
+/* ── Recent Applicants ───────────────────────────────────────────────────── */
+.recent-applicants h3 {
+  font-size: 1.125rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.empty-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.applicants-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.applicant-card {
+  padding: 0;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.applicant-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.applicant-card-header:hover {
+  background: var(--bg-hover);
+}
+
+.applicant-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.applicant-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.applicant-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.applicant-role {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.applicant-time {
+  font-size: 0.75rem;
+  color: #16a34a;
+  margin: 0;
+}
+
+.applicant-chevron {
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+  color: var(--text-muted);
+}
+
+.applicant-chevron.rotated {
+  transform: rotate(180deg);
+}
+
+.applicant-details {
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+  animation: expandDown 0.2s ease;
+}
+
+@keyframes expandDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.applicant-detail-section {
+  margin-bottom: var(--spacing-md);
+}
+
+.applicant-detail-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #16a34a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.applicant-detail-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.applicant-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.applicant-skill-badge {
+  padding: 0.25rem 0.6rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  color: var(--text-primary);
+}
+
+.applicant-links {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--border-color);
+}
+
+.applicant-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.4rem 0.85rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: all var(--transition-fast);
+}
+
+.applicant-link-btn:hover {
+  border-color: #16a34a;
+  color: #15803d;
+}
+
+.applicant-view-profile-btn {
+  background: none;
+  border: none;
+  color: #16a34a;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0.4rem 0;
+  transition: color var(--transition-fast);
+}
+
+.applicant-view-profile-btn:hover {
+  color: #15803d;
+}
+

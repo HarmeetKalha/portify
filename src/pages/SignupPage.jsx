@@ -8,6 +8,7 @@ export default function SignupPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    password: '',
     role: '',
     bio: '',
     companyName: '',
@@ -18,13 +19,18 @@ export default function SignupPage() {
   const { signup } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     // Validation
-    if (!formData.email || !formData.name) {
+    if (!formData.email || !formData.name || !formData.password) {
       setError('Please fill in all required fields');
+      return;
+    }
+
+    if (formData.password.length < 4) {
+      setError('Password must be at least 4 characters.');
       return;
     }
 
@@ -39,7 +45,7 @@ export default function SignupPage() {
     }
 
     // Create account
-    const success = signup(formData, userType);
+    const success = await signup(formData, userType);
     
     if (success) {
       navigate(userType === 'employee' ? '/employee/home' : '/employer/home');
@@ -113,6 +119,19 @@ export default function SignupPage() {
               </div>
 
               <div className="form-group">
+                <label htmlFor="signup-password">Password *</label>
+                <input
+                  id="signup-password"
+                  type="password"
+                  className="input"
+                  placeholder="Create a password"
+                  value={formData.password}
+                  onChange={(e) => handleChange('password', e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
                 <label htmlFor="role">Role/Title *</label>
                 <input
                   id="role"
@@ -162,6 +181,19 @@ export default function SignupPage() {
                   placeholder="hr@company.com"
                   value={formData.email}
                   onChange={(e) => handleChange('email', e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="employer-password">Password *</label>
+                <input
+                  id="employer-password"
+                  type="password"
+                  className="input"
+                  placeholder="Create a password"
+                  value={formData.password}
+                  onChange={(e) => handleChange('password', e.target.value)}
                   required
                 />
               </div>

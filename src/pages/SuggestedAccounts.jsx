@@ -1,6 +1,7 @@
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { mockEmployees } from '../data/mockData';
+import { api } from '../services/api';
 import { matchEmployeesToRequirements } from '../utils/matchingEngine';
 import ProfileCard from '../components/ProfileCard';
 import './SuggestedAccounts.css';
@@ -10,12 +11,19 @@ export default function SuggestedAccounts() {
   const navigate = useNavigate();
   const { addToRecentlyViewed } = useAuth();
   const requirements = location.state?.requirements;
+  const [allEmployees, setAllEmployees] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  let suggestedProfiles = mockEmployees;
-  
-  if (requirements) {
-    suggestedProfiles = matchEmployeesToRequirements(mockEmployees, requirements);
-  }
+  useEffect(() => {
+    api.getEmployees()
+      .then(setAllEmployees)
+      .catch(() => setAllEmployees([]))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const suggestedProfiles = requirements
+    ? matchEmployeesToRequirements(allEmployees, requirements)
+    : allEmployees;
 
   return (
     <div className="suggested-accounts">
@@ -44,10 +52,12 @@ export default function SuggestedAccounts() {
       )}
 
       <div className="profiles-grid">
-        {suggestedProfiles.length > 0 ? (
+        {loading ? (
+          <div className="no-results glass-card"><p>Loading candidates...</p></div>
+        ) : suggestedProfiles.length > 0 ? (
           suggestedProfiles.map(profile => (
-            <ProfileCard 
-              key={profile.id} 
+            <ProfileCard
+              key={profile.id}
               profile={profile}
               onClick={addToRecentlyViewed}
             />
